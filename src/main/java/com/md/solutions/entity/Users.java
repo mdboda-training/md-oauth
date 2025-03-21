@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +31,7 @@ public class Users {
 	private String username;
 	private String password;
 
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)  // This establishes a many-to-many relationship with Role
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)  // This establishes a many-to-many relationship with Role
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Roles> roles; // A user can have multiple roles
 }
